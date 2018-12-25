@@ -1,0 +1,1 @@
+global.QT = global.QT || {}

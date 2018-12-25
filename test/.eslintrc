@@ -1,0 +1,17 @@
+{
+  "globals": {
+    "describe": true,
+    "expect": true,
+    "context": true,
+    "it": true,
+    "before": true,
+    "beforeEach": true,
+    "QT": true,
+    "def": true,
+    "get": true,
+    "its": true,
+    "is": true,
+    "subject": true,
+    "afterEach": true
+  }
+}
