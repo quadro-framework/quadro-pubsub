@@ -10,7 +10,7 @@ module.exports = async function(container, pubsub, app, config) {
   const MANIFEST_VERSION = '1'
   await pubsub.initialize(serviceName, MANIFEST_VERSION, manifest)
 
-  const handlersList = await container.getAsync('handlersList')
+  const handlersList = await container.getAsync('quadroPubsub:handlersList')
 
   await pubsub.processMessages(async msg => {
     return handlersList.execute(msg)

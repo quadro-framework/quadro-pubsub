@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "pubsub": "git+ssh://git@github.com/lemonade-hq/pubsub.git"
+    "retry": "^0.12.0",
+    "ws": "^6.1.2"
   },
   "devDependencies": {
     "quadro": "git+https://github.com/igorshapiro/quadro.git#v2.0.0",
