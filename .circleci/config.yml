@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: /tmp/quadro-pubsub
+    docker:
+      - image: shapigor/quadro
+    steps:
+      - checkout
+      - restore_cache:
+          key: quadro-pubsub-{{ checksum "package.json" }}
+      - run: npm install
+      - run: npm test
+      - save_cache:
+          key: quadro-pubsub-{{ checksum "package.json" }}
+          paths:
+            - node_modules
