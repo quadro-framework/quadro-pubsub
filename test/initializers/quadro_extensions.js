@@ -10,11 +10,13 @@ module.exports = function(handlersList = 'quadroPubsub:handlersList') {
 
     async expectFailure(messageOrCode) {
       const ctx = await this.execute()
-      expect(ctx.isFailed()).to.be.true
-      const { code, message } = ctx.error
+      expect(ctx.isFailure()).to.be.true
+      if (messageOrCode === undefined) return
+
+      const { code, message } = ctx._error
 
       /* eslint eqeqeq: 0 */
-      expect(message == messageOrCode || code == messageOrCode)
+      expect(message == messageOrCode || code == messageOrCode).to.be.true
     }
 
     async expectSuccess() {
