@@ -2,6 +2,8 @@ const path = require('path')
 
 const Context = require('../lib/context')
 
+const MessageHandlingError = Q.Errors.declare('MessageHandlingError')
+
 module.exports = class Handlers {
   constructor(app) {
     this.app = app
@@ -29,7 +31,12 @@ module.exports = class Handlers {
       ctx.failure(err.message, 1)
     }
 
-    if (!ctx.isFailure()) ctx.success()
+    if (ctx.isFailure()) {
+      const { code, message } = ctx._error || {}
+      throw new MessageHandlingError(message, { code })
+    }
+
+    ctx.success()
 
     return ctx
   }
