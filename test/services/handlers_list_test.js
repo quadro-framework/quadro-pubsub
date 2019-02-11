@@ -26,7 +26,7 @@ describe.only('HandlersList', function() {
     it('throws a meaningful error if handler is missing', async function() {
       handlersList = new HandlersList()
       handlersList.handlersMap = new Map()
-      await expect(handlersList.execute({ type: 'some.message' }))
+      await expect(handlersList.execute({ type: 'some.unknown.message' }))
         .to.be.rejectedWith(Q.Errors.UnknownMessageHandlerError)
     })
   })
