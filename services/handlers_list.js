@@ -3,6 +3,9 @@ const path = require('path')
 const Context = require('../lib/context')
 
 const MessageHandlingError = Q.Errors.declare('MessageHandlingError')
+const UnknownMessageHandlerError = Q.Errors.declare('UnknownMessageHandlerError')
+
+const WILDCARD_HANDLER = '_all'
 
 module.exports = class Handlers {
   constructor(app) {
@@ -23,7 +26,10 @@ module.exports = class Handlers {
   }
 
   async execute(message) {
-    const handler = await Q.container.create(this.handlersMap.get(message.type))
+    const Handler = this.handlersMap.get(message.type) || this.handlersMap.get(WILDCARD_HANDLER)
+    if (!Handler) throw new UnknownMessageHandlerError({ type: message.type })
+
+    const handler = await Q.container.create(Handler)
     const ctx = new Context(message)
     try {
       await handler.handle(ctx)

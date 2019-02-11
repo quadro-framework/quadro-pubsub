@@ -2,6 +2,7 @@ const chai = require('chai')
 
 module.exports = function(pubsub) {
   beforeEach(function() {
+    if (pubsub.publish.restore) pubsub.publish.restore()
     this.sinon.stub(pubsub, 'publish').callsFake((type, content) => {
       QT.currentTest.lastPublishedMessage = { type, content }
     })
