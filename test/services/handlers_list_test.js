@@ -1,7 +1,7 @@
 const HandlersList = require('../../services/handlers_list')
 
 /* eslint no-unused-expressions: 0 */
-describe.only('HandlersList', function() {
+describe('HandlersList', function() {
   describe('.execute', function() {
     let handlersList
     let fallback
