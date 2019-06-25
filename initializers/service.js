@@ -1,4 +1,4 @@
-module.exports = async function(container, pubsub, app, config) {
+module.exports = async function (container, pubsub, app, config) {
   if (app.isTestEnv) return
 
   const handles = config.get('service.handles', [])
@@ -12,7 +12,9 @@ module.exports = async function(container, pubsub, app, config) {
 
   const handlersList = await container.getAsync('quadroPubsub:handlersList')
 
+  const concurrency = config.get('service.concurrency', 10)
+
   await pubsub.processMessages(async msg => {
     return handlersList.execute(msg)
-  })
+  }, { concurrency })
 }
